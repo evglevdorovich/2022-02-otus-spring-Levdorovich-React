@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from './props'
 import {Link} from "react-router-dom";
+import '../../style.css'
 
 Book.propTypes = propTypes;
 const BOOK_BASE_URL = "api/books/";
@@ -15,16 +16,17 @@ export default function Book ({...book}) {
         <td>{book.genreName}</td>
         <td>
             <Link to={`${BOOK_BASE_URL}${book.id}`}>
-                <img src="../../assets/edit-icon.svg" alt="edit-book"/>
+                <img src="../src/assets/edit-icon.svg" alt="edit-book"/>
             </Link>
         </td>
         <td>
             <Link to={`${COMMENT_BASE_URL}${book.id}`}>
-                <img className="comments-icon" src="../../assets/comments-icon.svg" alt="comments-link"/>
+                <img className="comments-icon" src="../src/assets/comments-icon.svg" alt="comments-link"/>
             </Link>
         </td>
         <td>
-            <button onClick={book.onRemove}><img src="../../assets/wastebasket-icon.svg" alt="delete-icon"/></button>
+            <button onClick={book.onRemove}><img className="basket-icon" src="./../src/assets/wastebasket-icon.svg"
+                                                 alt="delete-icon"/></button>
         </td>
     </tr>
 };
