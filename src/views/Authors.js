@@ -8,6 +8,7 @@ export default function () {
     useEffect(() => {
         console.log('effect in Authors')
         api.getAll().then(a => setAuthors(a))
+        console.log(authors)
     },[]);
 
     return <table className="authors-table">

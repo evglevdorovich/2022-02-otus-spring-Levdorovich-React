@@ -8,13 +8,11 @@ export default function () {
     let onBookRemove = api.remove;
 
     useEffect(() => {
-        console.log('effect in Books')
         api.getAll().then(b => {
-            console.log(b)
             setBooks(b)
         })
         console.log(books,'books after use Effect')
-    }, []);
+    },[]);
 
     return <table className="authors-table">
         <caption className="authors-table--caption">Authors</caption>
@@ -28,8 +26,8 @@ export default function () {
         {books.map((book) =>
             <Book id={book.id}
                   name={book.name}
-                  authorName={book.authorName}
-                  genreName={book.genreName}
+                  authorName={book.author.name}
+                  genreName={book.genre.name}
                   onRemove={() => onBookRemove(book.id)}
                   key={book.id}/>)
         }
