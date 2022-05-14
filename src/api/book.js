@@ -17,6 +17,7 @@ export async function getAll() {
     return await fetch(`${BASE_URL}`)
         .then(res => {
             if (res.ok) {
+                console.log('getting all data')
                 return res.json();
             } else throw res;
         })
@@ -32,7 +33,7 @@ export async function remove(id) {
         method: 'DELETE',
         body: JSON.stringify(body)
     })
-        .then(res => res.json())
+        .then(res => res)
         .catch((e) => {
             console.error(`Error while deleting a book, id: ${id}`)
         })

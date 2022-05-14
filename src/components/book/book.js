@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import propTypes from './props'
 import {Link} from "react-router-dom";
 import '../../style.css'
@@ -7,7 +7,7 @@ Book.propTypes = propTypes;
 const BOOK_BASE_URL = "api/books/";
 const COMMENT_BASE_URL = "api/comments/"
 
-export default function Book ({...book}) {
+export default function Book({...book}) {
 
     return <tr>
         <td>{book.id}</td>
@@ -25,8 +25,12 @@ export default function Book ({...book}) {
             </Link>
         </td>
         <td>
-            <button onClick={book.onRemove}><img className="basket-icon" src="./../src/assets/wastebasket-icon.svg"
-                                                 alt="delete-icon"/></button>
+            <button onClick={() => {
+            console.log('book deleted')
+            book.onRemove()}
+            }><img className="basket-icon"
+                                                src="./../src/assets/wastebasket-icon.svg"
+                                                alt="delete-icon"/></button>
         </td>
     </tr>
 };
