@@ -4,3 +4,4 @@
 3. localhost:9000
 4. homework in current repository
 5. ДЗ в ветке homework1
+Полноценное SPA приложение на React/Vue/Angular, только REST-контроллеры. В случае разработки SPA - рекомендуется вынести репозиторий с front-end. Используйте proxy при разработке (настройки CORS не должно быть). 
