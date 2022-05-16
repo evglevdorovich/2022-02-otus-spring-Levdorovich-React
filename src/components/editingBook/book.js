@@ -16,13 +16,11 @@ export default function Book() {
 
     const {id} = useParams();
 
-    const getAuthorsExceptBook = (authors, book) => {
-        let {author} = book
-        return authors.filter((auth) => auth !== author)
+    const getAuthorsExceptBook = (authors, author) => {
+        return authors.filter((auth) => auth.id !== author.id)
     };
-    const getGenresExceptBook = (genres, book) => {
-        let {genre} = book
-        return genres.filter((g) => g !== genre);
+    const getGenresExceptBook = (genres, genre) => {
+        return genres.filter((g) => g.id !== genre.id);
     }
 
     useEffect(() => {
@@ -34,7 +32,7 @@ export default function Book() {
             })
             .then(() => genreApi.getAll()
                 .then((genres) => {
-                    setGenresExceptBooks(getGenresExceptBook(genres, tempBook.genre))
+                    setGenresExceptBooks(() => getGenresExceptBook(genres, tempBook.genre))
                 })
                 .then(() => setGenresExceptBooksDownloaded(true)))
             .then(() => authorApi.getAll()
