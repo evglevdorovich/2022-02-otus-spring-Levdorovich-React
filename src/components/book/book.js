@@ -6,7 +6,7 @@ Book.propTypes = propTypes;
 
 export default function Book({...book}) {
 
-    return <tr>
+    return <>
         <td>{book.id}</td>
         <td>{book.name}</td>
         <td>{book.authorName}</td>
@@ -20,5 +20,5 @@ export default function Book({...book}) {
                    src="./../src/assets/wastebasket-icon.svg"
                    alt="delete-icon"/></button>
         </td>
-    </tr>
+    </>
 };

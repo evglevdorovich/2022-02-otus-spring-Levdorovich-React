@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react'
-import * as api from '../api/author'
+import React from 'react'
 import '../style.css'
 
 export default function ({authors}) {

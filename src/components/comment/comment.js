@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import propTypes from './props'
 import {Link, useParams} from "react-router-dom";
 import '../../style.css'
 import * as api from '../../api/comment'
-
-Comments.propTypes = propTypes;
 
 export default function Comments() {
     const {id} = useParams();
@@ -15,7 +12,6 @@ export default function Comments() {
         api.getByBookId(id).then((com) => setComments(com))
             .then(() => setCommentsDownloaded(true))
     }, []);
-
 
     return !commentsDownloaded ? null :  <div className="flex flex--comment-table">
         <table className="comments-table">

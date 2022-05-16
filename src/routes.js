@@ -13,10 +13,3 @@ export default function () {
         <Route path="*" element={<E404/>}/>
     </Routes>
 }
-
-/* export default function(){
-	return useRoutes([
-		{ path: "/", element: <Home /> },
-		{ path: "/product/:id", element: <Product /> }
-	]);
-} */

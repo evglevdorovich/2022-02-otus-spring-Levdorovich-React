@@ -24,7 +24,7 @@ export async function update(id, data) {
     })
         .then(res => res)
         .catch((e) => {
-            console.error(`Error while creating a book`,e)
+            console.error(`Error while creating a book`, e)
         })
 }
 
@@ -55,11 +55,9 @@ export async function remove(id) {
     })
         .then(res => res)
         .catch((e) => {
-            console.error(`Error while deleting a book, id: ${id}`,e)
+            console.error(`Error while deleting a book, id: ${id}`, e)
         })
 }
-
-
 
 export async function create(data) {
 
@@ -72,7 +70,7 @@ export async function create(data) {
     })
         .then(res => res)
         .catch((e) => {
-            console.error(`Error while creating a book`,e)
+            console.error(`Error while creating a book`, e)
         })
 }
 

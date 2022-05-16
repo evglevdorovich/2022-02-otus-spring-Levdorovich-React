@@ -4,11 +4,8 @@ import Books from '../views/Books'
 import * as bookApi from '../api/book'
 import * as genreApi from '../api/genre'
 import * as authorApi from '../api/author'
-import * as commentApi from '../api/comment'
-import * as RouterView from '../routes'
 import Genres from "./Genres";
 import Authors from "./Authors";
-// 3:37
 
 export default function Library() {
     let [genres, setGenres] = useState();
@@ -41,9 +38,15 @@ export default function Library() {
 
 
     return !genreDownload || !authorDownload || !bookDownloaded ? null : <>
-        <CreatingBook genres={genres} authors={authors} onCreate={onBookCreate}/>
+        <div className="flex flex--author-genre-table">
+            <Genres genres={genres}/>
+            <Authors authors={authors}/>
+        </div>
+        <div className="flex flex--books">
         <Books books={books} onRemove={onBookRemove}/>
-        <Genres genres={genres}/>
-        <Authors authors={authors}/>
+        </div>
+        <div className="flex flex--creating-book">
+        <CreatingBook genres={genres} authors={authors} onCreate={onBookCreate}/>
+        </div>
     </>
 }

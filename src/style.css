@@ -19,6 +19,10 @@
     border: 1px solid grey;
 }
 
+.flex--books {
+    justify-content: center;
+}
+
 .comments-table tr th, .comments-table tr td {
     border: 1px solid grey;
 }
@@ -77,8 +81,34 @@
 .creating-book--label {
     font-size: 18px;
     font-weight: bold;
+    align-items: center;
+    margin: 5px;
+}
+
+.creating-book--error {
+    margin: 5px
+}
+
+.creating-book--form {
+    align-items: center;
+}
+
+.creating-book--warning {
+    color: red;
+    font-size: 16px;
+}
+
+.updating-book--warning {
+    color: red;
+    font-size: 16px;
+    justify-content: center;
 }
 
 .book-id {
     text-align: center;
 }
+
+.book-name {
+    text-align: center;
+}
+

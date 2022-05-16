@@ -49,7 +49,7 @@ export default function Book() {
     const {register, handleSubmit, formState: {errors}} = useForm();
 
     return !genresExceptBooksDownloaded || !authorsExceptBooksDownloaded ? null :
-        <form onSubmit={handleSubmit((data) => {
+        <><form className="flex flex--books" onSubmit={handleSubmit((data) => {
             onUpdate(data)
         })}>
             <table className="books-table">
@@ -71,10 +71,10 @@ export default function Book() {
                         <label className="hidden" htmlFor="book-name">name:</label>
                         <input {...register("name", {required: 'Not an empty book'})}
                                id="book-name"
+                               className="book-name"
                                type="text"
                                name="name"
                                defaultValue={book.name}/>
-                        <p>{errors.name?.message}</p>
                     </td>
                     <td>
                         <label className="hidden" htmlFor="genre-select">Choose a genre</label>
@@ -111,4 +111,6 @@ export default function Book() {
                 </tbody>
             </table>
         </form>
+    <p className="updating-book--warning flex">{errors.name?.message}</p>
+            </>
 };
