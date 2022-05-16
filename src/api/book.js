@@ -1,7 +1,7 @@
-const BASE_URL = 'api/books/';
+const BASE_URL = 'http://localhost:9000/api/books/';
 
 export async function getById(id) {
-    return await fetch(`${BASE_URL}${id}`)
+    return fetch(`${BASE_URL}${id}`)
         .then(res => {
             if (res.ok) {
                 return res.json();
@@ -13,12 +13,28 @@ export async function getById(id) {
         });
 }
 
+export async function update(id, data) {
+
+    return fetch(`${BASE_URL}${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res)
+        .catch((e) => {
+            console.error(`Error while creating a book`,e)
+        })
+}
+
 export async function getAll() {
-    return await fetch(`${BASE_URL}`)
+    return fetch(`${BASE_URL}`)
         .then(res => {
             if (res.ok) {
-                console.log('getting all data')
-                return res.json();
+                const rese = res.json();
+                console.log('getting all data', rese)
+                return rese;
             } else throw res;
         })
         .catch((e) => {
@@ -29,13 +45,36 @@ export async function getAll() {
 
 export async function remove(id) {
     const body = {id: id}
+    console.log(JSON.stringify(body))
     return fetch(`${BASE_URL}${id}`, {
         method: 'DELETE',
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
         .then(res => res)
         .catch((e) => {
-            console.error(`Error while deleting a book, id: ${id}`)
+            console.error(`Error while deleting a book, id: ${id}`,e)
         })
 }
+
+
+
+export async function create(data) {
+
+    return fetch(`${BASE_URL}`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res)
+        .catch((e) => {
+            console.error(`Error while creating a book`,e)
+        })
+}
+
+
 

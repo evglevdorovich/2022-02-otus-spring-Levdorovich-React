@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import StoreContext from './contexts/store'
 import RootStore from './store'
+import RouterView from './routes'
 
 const store = new RootStore();
 store.products.load();
@@ -16,6 +17,7 @@ store.cart.load();
 
 ReactDom.render(
 	<BrowserRouter>
+		{/*<RouterView/>*/}
 		<StoreContext.Provider value={store}>
 			<App/>
 		</StoreContext.Provider>

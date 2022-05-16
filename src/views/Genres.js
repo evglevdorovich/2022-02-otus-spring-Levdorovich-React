@@ -2,13 +2,7 @@ import React, {useEffect, useState} from "react";
 import * as api from "../api/genre";
 import '../style.css'
 
-export default function () {
-    let [genres, setGenres] = useState([]);
-
-    useEffect(() => {
-        console.log('effect in Genres')
-        api.getAll().then(g => setGenres(g))
-    }, []);
+export default function ({genres}) {
 
     return <table className="genres-table">
         <caption className="genres-table--caption">Genres</caption>

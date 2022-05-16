@@ -1,7 +1,7 @@
-const BASE_URL = 'api/authors';
+const BASE_URL = 'http://localhost:9000/api/authors';
 
 export async function getAll() {
-    return await fetch(`${BASE_URL}`)
+    return fetch(`${BASE_URL}`)
         .then(res => {
             if (res.ok) {
                 return res.json();

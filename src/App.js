@@ -1,25 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import CartStat from './components/cart';
-import RouterView from './routes'
 import Authors from "./views/Authors";
 import Genres from "./views/Genres";
 import Books from "./views/Books";
+import Library from "./views/Library"
+import RouterView from './routes'
 
-export default function(){
+export default function () {
 
-	return <>
-		<header>
-		<Books/>
-		</header>
+    return <>
+        <header>
+        </header>
+        <main>
+            <RouterView/>
+        </main>
 
-					<main className="col col-9">
-						{/*<RouterView />*/}
-						<Authors/>
-						<Genres/>
-					</main>
-		
-	</>
+    </>
 }
 

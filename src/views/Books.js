@@ -2,27 +2,13 @@ import React, {useEffect, useState} from 'react'
 import * as api from '../api/book'
 import '../style.css'
 import Book from "../components/book/book";
+import {Link} from "react-router-dom";
+const COMMENT_BASE_URL = '/comments/'
+const BOOK_EDIT_BASE_URL = '/books/'
 
-export default function () {
-    let [books, setBooks] = useState([]);
-    let [changed, setChange] = useState(false);
-    let onBookRemove = async (id) => {
-        console.log(changed, 'before changing')
-        api.remove(id);
-        setChange(true);
-        console.log('in Book remove')
-    };
+export default function ({onRemove, books}) {
 
 
-    useEffect(() => {
-        console.log('in useEffect')
-        api.getAll().then(allBooks => {
-            console.log(allBooks, 'here')
-            setChange(false);
-            setBooks(allBooks)
-        })
-        console.log(books, 'books after use Effect')
-    }, [changed === false ? changed : null]);
 
     return <table className="authors-table">
         <caption className="authors-table--caption">Authors</caption>
@@ -35,16 +21,25 @@ export default function () {
         </tr>
         </thead>
         <tbody>
-        {books.map((book) =>
+        {books.map((book) => <>
             <Book id={book.id}
                   name={book.name}
                   authorName={book.author.name}
                   genreName={book.genre.name}
-                  onRemove={() => onBookRemove(book.id)}
+                  onRemove={() => onRemove(book.id)}
                   key={book.id}
-            />)
+            >
+            </Book>
+            <Link to={`${BOOK_EDIT_BASE_URL}${book.id}`}>
+                <img src="../src/assets/edit-icon.svg" alt="edit-book"/>
+            </Link>
+            <Link to={`${COMMENT_BASE_URL}${book.id}`}>
+                <img className="comments-icon" src="../src/assets/comments-icon.svg" alt="comments-link"/>
+            </Link>
+            </>
+        )
         }
+
         </tbody>
     </table>
-
 };
