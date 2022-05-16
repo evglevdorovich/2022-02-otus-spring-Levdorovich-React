@@ -1,2 +1,4 @@
 # 2022-02-otus-spring-Levdorovich-React
-UI for Library
+1. UI for Library on REACT
+2. Run with  webpack serve --mode development
+3. localhost:9000
