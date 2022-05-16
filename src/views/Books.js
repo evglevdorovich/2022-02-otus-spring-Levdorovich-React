@@ -19,7 +19,7 @@ export default function ({onRemove, books}) {
         </tr>
         </thead>
         <tbody>
-        {books.map((book) => <tr>
+        {books.map((book) => <tr key={book.id}>
                 <Book id={book.id}
                       name={book.name}
                       authorName={book.author.name}

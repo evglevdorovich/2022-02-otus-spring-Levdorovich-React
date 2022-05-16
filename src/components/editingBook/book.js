@@ -79,10 +79,10 @@ export default function Book() {
                     <td>
                         <label className="hidden" htmlFor="genre-select">Choose a genre</label>
                         <select {...register("genreId")} id="genre-select" name="genreId">
-                            <option value={book.genre.id} selected>{book.genre.name}
+                            <option defaultValue={book.genre.id} value={book.genre.id}>{book.genre.name}
                             </option>
                             {genresExceptBooks.map((g) =>
-                                <option value={g.id}>{g.name}
+                                <option key={g.id} value={g.id}>{g.name}
                                 </option>)
                             }
                         </select>
@@ -90,10 +90,10 @@ export default function Book() {
                     <td>
                         <label className="hidden" htmlFor="author-select">Choose an author</label>
                         <select {...register("authorId")} id="author-select" name="authorId">
-                            <option value={book.author.id} selected>{book.author.name}
+                            <option defaultValue={book.author.id} value={book.author.id}>{book.author.name}
                             </option>
                             {authorsExceptBooks.map((a) =>
-                                <option value={a.id}>{a.name}
+                                <option key={a.id} value={a.id}>{a.name}
                                 </option>)
                             }
                         </select>
