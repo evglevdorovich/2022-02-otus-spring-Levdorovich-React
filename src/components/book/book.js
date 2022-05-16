@@ -13,7 +13,6 @@ export default function Book({...book}) {
         <td>{book.genreName}</td>
         <td>
             <button onClick={() => {
-                console.log('book deleted')
                 book.onRemove()
             }
             }><img className="basket-icon"

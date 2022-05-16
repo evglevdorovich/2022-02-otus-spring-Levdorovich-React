@@ -23,7 +23,6 @@ export default function Library() {
     }
 
     let onBookRemove = (id) => {
-        console.log('In book remove')
         bookApi.remove(id)
             .then(() => bookApi.getAll())
             .then((b) => setBooks(b))

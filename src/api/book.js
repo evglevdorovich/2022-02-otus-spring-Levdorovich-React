@@ -32,9 +32,7 @@ export async function getAll() {
     return fetch(`${BASE_URL}`)
         .then(res => {
             if (res.ok) {
-                const rese = res.json();
-                console.log('getting all data', rese)
-                return rese;
+                return res.json();
             } else throw res;
         })
         .catch((e) => {
@@ -45,7 +43,6 @@ export async function getAll() {
 
 export async function remove(id) {
     const body = {id: id}
-    console.log(JSON.stringify(body))
     return fetch(`${BASE_URL}${id}`, {
         method: 'DELETE',
         body: JSON.stringify(body),
