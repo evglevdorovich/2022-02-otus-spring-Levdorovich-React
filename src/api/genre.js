@@ -1,7 +1,9 @@
-const BASE_URL = 'http://localhost:9000/api/genres';
+import {BASE_API} from './baseApi'
+
+const GENRES_BASE_URL = BASE_API.BASE_URL + 'api/genres';
 
 export async function getAll() {
-    return fetch(`${BASE_URL}`)
+    return fetch(`${GENRES_BASE_URL}`)
         .then(res => {
             if (res.ok) {
                 return res.json();

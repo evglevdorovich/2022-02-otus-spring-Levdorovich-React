@@ -1,7 +1,9 @@
-const BASE_URL = 'http://localhost:9000/api/books/';
+import {BASE_API} from './baseApi'
+
+const BOOK_BASE_URL = BASE_API.BASE_URL + 'api/books/';
 
 export async function getById(id) {
-    return fetch(`${BASE_URL}${id}`)
+    return fetch(`${BOOK_BASE_URL}${id}`)
         .then(res => {
             if (res.ok) {
                 return res.json();
@@ -15,7 +17,7 @@ export async function getById(id) {
 
 export async function update(id, data) {
 
-    return fetch(`${BASE_URL}${id}`, {
+    return fetch(`${BOOK_BASE_URL}${id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
@@ -29,7 +31,7 @@ export async function update(id, data) {
 }
 
 export async function getAll() {
-    return fetch(`${BASE_URL}`)
+    return fetch(`${BOOK_BASE_URL}`)
         .then(res => {
             if (res.ok) {
                 return res.json();
@@ -43,7 +45,7 @@ export async function getAll() {
 
 export async function remove(id) {
     const body = {id: id}
-    return fetch(`${BASE_URL}${id}`, {
+    return fetch(`${BOOK_BASE_URL}${id}`, {
         method: 'DELETE',
         body: JSON.stringify(body),
         headers: {
@@ -58,7 +60,7 @@ export async function remove(id) {
 
 export async function create(data) {
 
-    return fetch(`${BASE_URL}`, {
+    return fetch(`${BOOK_BASE_URL}`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {

@@ -1,14 +1,16 @@
-const BASE_URL = 'http://localhost:9000/api/comments/';
+import {BASE_API} from './baseApi'
+
+const COMMENTS_BASE_URL = BASE_API.BASE_URL + 'api/comments/';
 
 export async function getByBookId(bookId) {
-    return fetch(`${BASE_URL}${bookId}`)
+    return fetch(`${COMMENTS_BASE_URL}${bookId}`)
         .then(res => {
             if (res.ok) {
                 return res.json();
             } else throw res;
         })
         .catch((e) => {
-            console.error('Error while fetching authors', e, `${BASE_URL}${bookId}`);
+            console.error('Error while fetching authors', e, `${COMMENTS_BASE_URL}${bookId}`);
             return {};
         });
 }
