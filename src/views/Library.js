@@ -22,8 +22,8 @@ export default function Library() {
             .then((b) => setBooks(b))
     }
 
-    let onBookRemove = (id) => {
-        bookApi.remove(id)
+    let onBookRemove = (selfHref) => {
+        bookApi.remove(selfHref)
             .then(() => bookApi.getAll())
             .then((b) => setBooks(b))
     }
@@ -38,14 +38,14 @@ export default function Library() {
 
     return !genreDownload || !authorDownload || !bookDownloaded ? null : <>
         <div className="flex flex--author-genre-table">
-            <Genres genres={genres}/>
-            <Authors authors={authors}/>
+            <Genres genres={genres._embedded.genres}/>
+            <Authors authors={authors._embedded.authors}/>
         </div>
         <div className="flex flex--books">
-        <Books books={books} onRemove={onBookRemove}/>
+        <Books books={books._embedded.books} onRemove={onBookRemove}/>
         </div>
         <div className="flex flex--creating-book">
-        <CreatingBook genres={genres} authors={authors} onCreate={onBookCreate}/>
+        <CreatingBook genres={genres._embedded.genres} authors={authors._embedded.authors} onCreate={onBookCreate}/>
         </div>
     </>
 }
