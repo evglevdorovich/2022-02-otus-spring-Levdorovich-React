@@ -8,6 +8,9 @@ import * as genreApi from "../../api/genre"
 
 export default function Book() {
     let [book, setBook] = useState();
+    let [booksGenreHref, setBooksGenreHref] = useState();
+    let [booksAuthorHref, setBooksAuthorHref] = useState();
+
     let [authorsExceptBooks, setAuthorsExceptBooks] = useState([]);
     let [genresExceptBooks, setGenresExceptBooks] = useState([]);
 
@@ -16,11 +19,19 @@ export default function Book() {
 
     const {id} = useParams();
 
+    const getAuthorsHrefFromBooks = (authors, book) => {
+        return authors.find((a) => a.name !== book.author.name)._links.self.href;
+    }
+
+    const getGenresHrefFromBooks = (genres, book) => {
+        return genres.find((g) => g.name !== book.genre.name)._links.self.href;
+    }
+
     const getAuthorsExceptBook = (authors, author) => {
-        return authors.filter((auth) => auth.id !== author.id)
+        return authors.filter((auth) => auth.name !== author.name)
     };
     const getGenresExceptBook = (genres, genre) => {
-        return genres.filter((g) => g.id !== genre.id);
+        return genres.filter((g) => g.name !== genre.name);
     }
 
     useEffect(() => {
@@ -31,12 +42,18 @@ export default function Book() {
                 tempBook = b
             })
             .then(() => genreApi.getAll()
+                .then(genres => genres._embedded.genres)
                 .then((genres) => {
-                    setGenresExceptBooks(() => getGenresExceptBook(genres, tempBook.genre))
+                    setGenresExceptBooks(getGenresExceptBook(genres, tempBook.genre));
+                    setBooksGenreHref(getGenresHrefFromBooks(genres, tempBook));
                 })
                 .then(() => setGenresExceptBooksDownloaded(true)))
             .then(() => authorApi.getAll()
-                .then((authors) => setAuthorsExceptBooks(getAuthorsExceptBook(authors, tempBook.author)))
+                .then(authors => authors._embedded.authors)
+                .then((authors) => {
+                    setAuthorsExceptBooks(getAuthorsExceptBook(authors, tempBook.author));
+                    setBooksAuthorHref(getAuthorsHrefFromBooks(authors, tempBook));
+                })
                 .then(() => setAuthorsExceptBooksDownloaded(true)))
     }, [])
 
@@ -52,7 +69,6 @@ export default function Book() {
                 <table className="books-table">
                     <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Genre</th>
                         <th>Author</th>
@@ -60,10 +76,6 @@ export default function Book() {
                     </thead>
                     <tbody>
                     <tr>
-                        <td>
-                            <label htmlFor="book-id" className="hidden">id:</label>
-                            <input className="book-id" id="book-id" type="text" name="id" value={book.id} readOnly/>
-                        </td>
                         <td>
                             <label className="hidden" htmlFor="book-name">name:</label>
                             <input {...register("name", {required: 'Not an empty book'})}
@@ -75,28 +87,28 @@ export default function Book() {
                         </td>
                         <td>
                             <label className="hidden" htmlFor="genre-select">Choose a genre</label>
-                            <select {...register("genreId")} id="genre-select" name="genreId">
-                                <option defaultValue={book.genre.id} value={book.genre.id}>{book.genre.name}
+                            <select {...register("genre")} id="genre-select" name="genre">
+                                <option defaultValue={booksGenreHref} value={booksGenreHref}>{book.genre.name}
                                 </option>
                                 {genresExceptBooks.map((g) =>
-                                    <option key={g.id} value={g.id}>{g.name}
+                                    <option key={g._links.self.href} value={g._links.self.href}>{g.name}
                                     </option>)
                                 }
                             </select>
                         </td>
                         <td>
                             <label className="hidden" htmlFor="author-select">Choose an author</label>
-                            <select {...register("authorId")} id="author-select" name="authorId">
-                                <option defaultValue={book.author.id} value={book.author.id}>{book.author.name}
+                            <select {...register("author")} id="author-select" name="author">
+                                <option defaultValue={booksAuthorHref} value={booksAuthorHref}>{book.author.name}
                                 </option>
                                 {authorsExceptBooks.map((a) =>
-                                    <option key={a.id} value={a.id}>{a.name}
+                                    <option key={a._links.self.href} value={a._links.self.href}>{a.name}
                                     </option>)
                                 }
                             </select>
                         </td>
                         <td>
-                            <input className="submit-icon" type="image" src="../src/assets/submit-icon.svg"
+                            <input value={book._links.self.href} name="book" className="submit-icon" type="image" src="../src/assets/submit-icon.svg"
                                    alt="submit-icon"/>
                         </td>
                         <td>

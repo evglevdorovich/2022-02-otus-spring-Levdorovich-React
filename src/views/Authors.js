@@ -7,14 +7,12 @@ export default function ({authors}) {
         <caption className="authors-table--caption">Authors</caption>
         <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
         </tr>
         </thead>
         <tbody>
         {authors.map((author) =>
-            <tr key={author.id}>
-                <td>{author.id}</td>
+            <tr key={author._links.self.href}>
                 <td>{author.name}</td>
             </tr>)
         }

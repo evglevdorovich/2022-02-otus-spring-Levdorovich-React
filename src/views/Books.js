@@ -2,9 +2,9 @@ import React from 'react'
 import '../style.css'
 import Book from "../components/book/book";
 import {Link} from "react-router-dom";
+import {BASE_API} from "../api/baseApi";
 
 const COMMENT_BASE_URL = '/comments/'
-const BOOK_EDIT_BASE_URL = '/books/'
 
 export default function ({onRemove, books}) {
 
@@ -12,29 +12,27 @@ export default function ({onRemove, books}) {
         <caption className="books-table--caption">Books</caption>
         <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Author name</th>
             <th>Genre name</th>
         </tr>
         </thead>
         <tbody>
-        {books.map((book) => <tr key={book.id}>
-                <Book id={book.id}
-                      name={book.name}
+        {books.map((book) => <tr key={book._links.self.href}>
+                <Book name={book.name}
                       authorName={book.author.name}
                       genreName={book.genre.name}
-                      onRemove={() => onRemove(book.id)}
-                      key={book.id}
+                      onRemove={() => onRemove(book._links.self.href)}
+                      key={book._links.self.href}
                 >
                 </Book>
             <td>
-                <Link to={`${BOOK_EDIT_BASE_URL}${book.id}`}>
+                <Link to={convertToBookUri(book._links.self.href)}>
                     <img src="../src/assets/edit-icon.svg" alt="edit-book"/>
                 </Link>
             </td>
             <td>
-                <Link to={`${COMMENT_BASE_URL}${book.id}`}>
+                <Link to={convertToCommentUri(book._links.self.href)}>
                     <img className="comments-icon" src="../src/assets/comments-icon.svg" alt="comments-link"/>
                 </Link>
             </td>
@@ -45,3 +43,15 @@ export default function ({onRemove, books}) {
         </tbody>
     </table>
 };
+
+function convertToBookUri(url) {
+    let lengthOfApi = "/api/".length;
+    const indexOfApi = url.indexOf("/api/");
+    return url.slice(indexOfApi + lengthOfApi);
+}
+
+function convertToCommentUri(url) {
+    let lengthOfApi = "/api/books/".length;
+    const indexOfApi = url.indexOf("/api/books/");
+    return "/comments/" + url.slice(indexOfApi + lengthOfApi)
+}

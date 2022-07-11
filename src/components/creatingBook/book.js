@@ -19,16 +19,16 @@ export default function Book({genres, authors, onCreate}) {
                 />
             </label>
         <label className="creating-book--label" htmlFor="genre-select">Choose a genre
-            <select {...register("genreId")} id="genre-select" name="genreId">
+            <select {...register("genre")} id="genre-select" name="genre">
                 {genres.map((genre) =>
-                    <option value={genre.id} key={genre.id}>{genre.name}</option>
+                    <option value={genre._links.self.href} key={genre._links.self.href}>{genre.name}</option>
                 )}
             </select>
         </label>
         <label className="creating-book--label" htmlFor="author-select">Choose an author
-            <select {...register("authorId")} id="author-select" name="authorId">
+            <select {...register("author")} id="author-select" name="author">
                 {authors.map((author) =>
-                    <option value={author.id} key={author.id}>{author.name}</option>
+                    <option value={author._links.self.href} key={author._links.self.href}>{author.name}</option>
                 )}
             </select>
         </label>

@@ -9,7 +9,7 @@ export default function Comments() {
     let [commentsDownloaded, setCommentsDownloaded] = useState(false);
 
     useEffect(() => {
-        api.getByBookId(id).then((com) => setComments(com))
+        api.getByBookId(id).then((com) => setComments(com._embedded.comments))
             .then(() => setCommentsDownloaded(true))
     }, []);
 
@@ -18,13 +18,11 @@ export default function Comments() {
             <caption className="comments-table--caption">Comments</caption>
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Text</th>
             </tr>
             </thead>
             <tbody>
-            {comments.map((com) => <tr key={com.id}>
-                <td>{com.id}</td>
+            {comments.map((com) => <tr key={com._links.self.href}>
                 <td>{com.text}</td>
             </tr>)
             }

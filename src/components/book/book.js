@@ -7,7 +7,6 @@ Book.propTypes = propTypes;
 export default function Book({...book}) {
 
     return <>
-        <td>{book.id}</td>
         <td>{book.name}</td>
         <td>{book.authorName}</td>
         <td>{book.genreName}</td>

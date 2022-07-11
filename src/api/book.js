@@ -1,9 +1,12 @@
 import {BASE_API} from './baseApi'
 
 const BOOK_BASE_URL = BASE_API.BASE_URL + 'api/books/';
+const BOOK_PROJECTION_NAME = BASE_API.PROJECTION_NAME;
 
 export async function getById(id) {
-    return fetch(`${BOOK_BASE_URL}${id}`)
+
+    return fetch(`${BOOK_BASE_URL}${id}?` +
+        new URLSearchParams({projection: BOOK_PROJECTION_NAME}))
         .then(res => {
             if (res.ok) {
                 return res.json();
@@ -18,7 +21,7 @@ export async function getById(id) {
 export async function update(id, data) {
 
     return fetch(`${BOOK_BASE_URL}${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
@@ -43,18 +46,17 @@ export async function getAll() {
         });
 }
 
-export async function remove(id) {
-    const body = {id: id}
-    return fetch(`${BOOK_BASE_URL}${id}`, {
+export async function remove(selfHref) {
+    return fetch(convertToBaseUrl(selfHref), {
         method: 'DELETE',
-        body: JSON.stringify(body),
+        body: JSON.stringify(selfHref),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
     })
         .then(res => res)
         .catch((e) => {
-            console.error(`Error while deleting a book, id: ${id}`, e)
+            console.error(`Error while deleting a book, href: ${selfHref}`, e)
         })
 }
 
@@ -71,6 +73,11 @@ export async function create(data) {
         .catch((e) => {
             console.error(`Error while creating a book`, e)
         })
+}
+
+function convertToBaseUrl(url) {
+    const indexOfApi = url.indexOf("/api/");
+    return BASE_API.BASE_URL + url.slice(indexOfApi + 1)
 }
 
 
