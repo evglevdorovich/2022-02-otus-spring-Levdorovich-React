@@ -4,3 +4,4 @@
 3. localhost:9000
 4. homework in current repository
 5. ДЗ в ветке main
+6. Домашнее задание по HATEOAS в ветке hateoas
